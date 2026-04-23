@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Result System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+
+        .top {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .top h1 { color: white; font-size: 28px; font-weight: 700; }
+        .top p  { color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 4px; }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px 35px;
+            width: 100%;
+            max-width: 950px;
+            backdrop-filter: blur(10px);
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            gap: 12px;
+            align-items: end;
+            margin-bottom: 16px;
+        }
+
+        .row-label {
+            color: rgba(255,255,255,0.4);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        .field { display: flex; flex-direction: column; gap: 6px; }
+
+        label {
+            color: rgba(255,255,255,0.6);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: white;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        input::placeholder { color: rgba(255,255,255,0.25); }
+
+        input:focus {
+            outline: none;
+            border-color: #e94560;
+            background: rgba(233,69,96,0.1);
+            box-shadow: 0 0 0 3px rgba(233,69,96,0.15);
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            margin: 20px 0;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 10px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #e94560, #c62a47);
+            color: white;
+            box-shadow: 0 4px 20px rgba(233,69,96,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(233,69,96,0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.08);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="top">
+    <h1>🎓 Student Result System</h1>
+    <p>Enter student details and marks below</p>
+</div>
+
+<div class="card">
+
+    <div class="row-label">Student Information</div>
+    <div class="row" style="grid-template-columns: 1fr 1fr;">
+        <div class="field">
+            <label>Full Name</label>
+            <input type="text" id="name" placeholder="e.g. John Doe">
+        </div>
+        <div class="field">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="e.g. john@email.com">
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="row-label">Marks Entry — Each subject out of 100</div>
+    <div class="row">
+        <div class="field">
+            <label>Math</label>
+            <input type="number" id="math" placeholder="0-100" min="0" max="100">
+        </div>
+        <div class="field">
+            <label>Science</label>
+            <input type="number" id="science" placeholder="0-100" min="0" max="100">
+        </div>
+        <div class="field">
+            <label>English</label>
+            <input type="number" id="english" placeholder="0-100" min="0" max="100">
+        </div>
+        <div class="field">
+            <label>History</label>
+            <input type="number" id="history" placeholder="0-100" min="0" max="100">
+        </div>
+        <div class="field">
+            <label>Computer</label>
+            <input type="number" id="computer" placeholder="0-100" min="0" max="100">
+        </div>
+    </div>
+
+    <div class="btn-row">
+        <a href="results" class="btn btn-outline">View Results</a>
+        <button class="btn btn-primary" onclick="submitForm()">Submit Result</button>
+    </div>
+
+</div>
+
+<script>
+function submitForm() {
+    const name    = document.getElementById('name').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const math    = document.getElementById('math').value;
+    const science = document.getElementById('science').value;
+    const english = document.getElementById('english').value;
+    const history = document.getElementById('history').value;
+    const computer= document.getElementById('computer').value;
+
+    if (!name || !email || !math || !science || !english || !history || !computer) {
+        alert('Please fill in all fields!');
+        return;
+    }
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'addStudent';
+
+    const fields = { name, email, math, science, english, history, computer };
+    for (const key in fields) {
+        const input = document.createElement('input');
+        input.type  = 'hidden';
+        input.name  = key;
+        input.value = fields[key];
+        form.appendChild(input);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+</script>
+
+</body>
+</html>
